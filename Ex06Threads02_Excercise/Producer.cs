@@ -17,7 +17,7 @@ namespace Ex06Threads02_Excercise
             Producer Prod = new Producer();
             while (true)
             {
-                Thread.Sleep(20);
+                Thread.Sleep(200);
                 lock (Program.lockThis)
                 {
                     if (Program.nextNmbr.Count <= 100)

@@ -13,20 +13,34 @@ namespace Ex06Threads02_Excercise
 
         public static void ConsumeCustomer()
         {
+            int sleeptime = 10;
             while (true)
             {
-                Thread.Sleep(1234);
+                
+                //if (Program.nextNmbr.Count > 0)
+                //{
+                //    sleeptime = 1000;
+                //}
+                //else
+                //{
+                //    sleeptime = 0;
+                //}
                 lock (Program.lockThis)
                 {
-                    if (Program.nextNmbr.Count >= 1)
+                    if (Program.nextNmbr.Count > 0)
                     {
-                        
+                        sleeptime = 1000;
                         Console.WriteLine(Program.nextNmbr[0] + " has been consumed");
                         Program.nextNmbr.RemoveAt(0);
                     }
+                    else
+                    {
+                        sleeptime = 10;
+                    }
                 }
+                Thread.Sleep(sleeptime);
                 Program.WakeProducer.Set();
-                if (Program.nextNmbr.Count > 0)
+                if (Program.nextNmbr.Count <= 0)
                 {
                     Program.WakeConsumer.WaitOne();
                 }
